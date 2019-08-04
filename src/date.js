@@ -2,6 +2,14 @@
     "use strict";
 
     window.ls.container.set('date', function () {
+        function fixTimezone (unixTime) {
+            var timezoneMinutes = new Date().getTimezoneOffset();
+            timezoneMinutes = (timezoneMinutes === 0) ? 0 : -timezoneMinutes;
+
+            // Timezone difference in minutes such as 330 or -360 or 0
+            return parseInt(unixTime) + (timezoneMinutes * 60);
+        }
+
         function timetostr(format, timestamp) {
             //  discuss at: http://locutus.io/php/date/
             // original by: Carlos R. L. Rodrigues (http://www.jsfromhell.com)
@@ -597,8 +605,15 @@
         }
 
         return {
-            timetostr: timetostr,
-            strtotime: strtotime
+            timetostr: function(format, timestamp) {
+                return timetostr(format, timestamp);
+            },
+            strtotime: function(text, now) {
+                return strtotime(text, now);
+            },
+            timezone: function(timestamp) {
+                return fixTimezone(timestamp);
+            }
         }
     }(), true);
 
