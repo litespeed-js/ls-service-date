@@ -29,10 +29,8 @@ Install with CDN:
 ```js
 let date = window.ls.container.get('date');
 
-date.strtotime(''); //
-date.timetostr(''); //
-
-date.timetostr('Y-m-d H:i', 1564947784); //
+date.timetostr('Y-m-d H:i', 1564947784); // 2019-08-04 22:43:04
+date.strtotime('2019-08-04 22:43:04'); // 1564947784
 ```
 
 ## Contributing
